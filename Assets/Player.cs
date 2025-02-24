@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private CinemachineCamera freeLookCamera;
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float jumpForce = 1f;
     private bool isCollidingWithGround = false;
 
     private Rigidbody rb;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     void Update() {
         if (Input.GetKey(KeyCode.Space) && isCollidingWithGround == true)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Force);
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         
     }
@@ -42,5 +42,10 @@ public class Player : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         isCollidingWithGround = true;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        isCollidingWithGround = false;
     }
 }
