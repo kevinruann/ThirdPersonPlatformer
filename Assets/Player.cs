@@ -4,6 +4,7 @@ using Unity.Cinemachine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private Coin coin;
     [SerializeField] private CinemachineCamera freeLookCamera;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce = 1f;
@@ -41,11 +42,33 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        isCollidingWithGround = true;
+        if (collision.gameObject.CompareTag("Surface")) {
+            isCollidingWithGround = true;
+        }
+        
+        if (collision.gameObject.CompareTag("Coin")) {
+            Destroy(collision.gameObject);
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            gameManager.incrementScore();
+        }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        isCollidingWithGround = false;
+        if (collision.gameObject.CompareTag("Surface")) {
+            isCollidingWithGround = false;
+        }
     }
+
+    // public string plane = "Plane";  // Tag for the specific object you want to detect
+
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     // Check if the object that collided has the specific tag
+    //     if (other.CompareTag(plane))
+    //     {
+    //         // Code to execute when the specific object enters the trigger
+    //         Debug.Log("Target object entered the trigger!");
+    //     }
+    // }
 }
