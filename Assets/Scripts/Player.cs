@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Coin coin;
     [SerializeField] private CinemachineCamera freeLookCamera;
     [SerializeField] private float speed;
-    [SerializeField] private float jumpForce = 1f;
+    [SerializeField] private float jumpForce = 5f;
     private bool isCollidingWithGround = false;
     private bool doubleJump = false;
 
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isCollidingWithGround == true)
             {
@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
                 isCollidingWithGround = false;
                 doubleJump = false;
             } 
+        }
+        if (Input.GetKeyDown(KeyCode.W) && isCollidingWithGround == false)
+        {
+            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
         }
     }
 
