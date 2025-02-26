@@ -7,6 +7,6 @@ public class Coin : MonoBehaviour
     void Update()
     {
         // Rotate the object around its Y axis (you can change the axis and values)
-        transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
     }
 }

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce = 1f;
     private bool isCollidingWithGround = false;
+    private bool doubleJump = false;
 
     private Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,11 +20,21 @@ public class Player : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKey(KeyCode.Space) && isCollidingWithGround == true)
+        if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (isCollidingWithGround == true)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isCollidingWithGround = false;
+                doubleJump = true;
+            }
+            else if (doubleJump == true)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isCollidingWithGround = false;
+                doubleJump = false;
+            } 
         }
-        
     }
 
     private void MovePlayer(Vector2 direction)
@@ -44,6 +55,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Surface")) {
             isCollidingWithGround = true;
+            doubleJump = false;
         }
         
         if (collision.gameObject.CompareTag("Coin")) {
@@ -59,16 +71,4 @@ public class Player : MonoBehaviour
             isCollidingWithGround = false;
         }
     }
-
-    // public string plane = "Plane";  // Tag for the specific object you want to detect
-
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     // Check if the object that collided has the specific tag
-    //     if (other.CompareTag(plane))
-    //     {
-    //         // Code to execute when the specific object enters the trigger
-    //         Debug.Log("Target object entered the trigger!");
-    //     }
-    // }
 }
