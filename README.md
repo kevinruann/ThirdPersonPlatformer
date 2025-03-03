@@ -8,6 +8,6 @@ Implemented Functionality:
 - Rotating collectible coins
 - Score UI to show coins collected
 - Proper git commit history
-- Readme file\
+- Readme file
 
 Video Demo Link: https://youtu.be/yLWrowM8wuw
