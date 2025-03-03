@@ -27,17 +27,20 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isCollidingWithGround = false;
                 doubleJump = true;
+                Debug.Log("Jump");
             }
             else if (doubleJump == true)
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isCollidingWithGround = false;
                 doubleJump = false;
+                Debug.Log("Double Jump");
             } 
         }
         if (Input.GetKeyDown(KeyCode.W) && isCollidingWithGround == false)
         {
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+            rb.AddForce(transform.forward * 5f, ForceMode.Impulse);
+            Debug.Log("Dash");
         }
     }
 
